@@ -23,6 +23,7 @@
     - git
     - ruby
     - ruby-dev
+    - nginx
   sudo: True
 
 - name: install compass
@@ -39,6 +40,7 @@
     - yo
     - bower
     - forever
+  sudo: True
 
 - name: Create base directory
   file:
