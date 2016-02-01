@@ -1,0 +1,49 @@
+---
+
+- name: install curl
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+  sudo: True
+
+- name: add node debian
+  shell:  curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+  sudo: True
+
+- name: install apt packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vim
+    - build-essential
+    - nodejs
+    - git
+    - ruby
+    - ruby-dev
+  sudo: True
+
+- name: install compass
+  gem: name=compass state=present
+  sudo: True
+
+- name: install global npm packages
+  npm:
+    name: "{{ item }}"
+    global: yes
+    state: present
+  with_items:
+    - grunt-cli
+    - yo
+    - bower
+    - forever
+
+- name: Create base directory
+  file:
+    path: /data
+    state: directory
+    owner: pi
+    group: pi
+  sudo: True

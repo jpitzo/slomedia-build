@@ -1,0 +1,14 @@
+---
+
+- name: Create server directory
+  file:
+    path: /data/server
+    state: directory
+    owner: pi
+    group: pi
+  sudo: True
+
+- name: checkout server project
+  git:
+    repo: https://github.com/jpitzo/slomedia-server.git
+    dest: /data/server

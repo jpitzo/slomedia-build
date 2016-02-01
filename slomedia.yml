@@ -1,0 +1,7 @@
+---
+
+- hosts: raspberry_pi
+  roles:
+    - common
+    - server
+    - client

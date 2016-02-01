@@ -1,0 +1,4 @@
+
+install ansible
+
+ansible-galaxy -r requirments.yml

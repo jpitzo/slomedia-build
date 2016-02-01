@@ -1,0 +1,36 @@
+---
+
+- name: Create client directory
+  file:
+    path: /data/client
+    state: directory
+    owner: pi
+    group: pi
+  sudo: True
+
+- name: checkout server project
+  git:
+    repo: https://github.com/jpitzo/slomedia-client.git
+    dest: /data/client
+
+- name: add web host host
+  lineinfile: dest=/etc/hosts line="127.0.0.1 slomedialocal"
+  sudo: True
+
+- name: install npm packages
+  shell: npm install
+  args:
+    chdir: /data/client
+
+- name: install bower packages
+  shell: bower install
+  args:
+    chdir: /data/client
+
+- name: build project
+  shell: grunt build
+  args:
+    chdir: /data/client
+
+- name: restart nginx
+  service: name=nginx state=restarted
