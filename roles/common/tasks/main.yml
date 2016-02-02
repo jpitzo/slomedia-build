@@ -26,9 +26,12 @@
     - nginx
   sudo: True
 
-- name: install compass
-  gem: name=compass state=present
-  sudo: True
+- name: Install ruby gems as Grunt dependencies
+  gem: name="{{ item }}" state=present include_dependencies=yes user_install=no
+  with_items:
+    - bundler
+  become: yes
+  become_user: root
 
 - name: install global npm packages
   npm:

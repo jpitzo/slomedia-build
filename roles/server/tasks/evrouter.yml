@@ -1,0 +1,42 @@
+---
+
+- name: install automake
+  apt:
+    name: "{{ item }}"
+    state: present
+  sudo: True
+  with_item:
+    - libx11-dev
+    - automake
+    - libxtst-dev
+
+- name: get evrouter
+  shell: wget http://files.bedroomlan.org/debian/pool/main/e/evrouter/evrouter_0.4.tar.gz
+  args:
+    chdir: ~/
+
+- name: unpack evrouter
+  shell: tar -xzf evrouter_0.4.tar.gz
+  args:
+    chdir: ~/
+
+- name: automake evrouter
+  shell: ./automake.sh
+  args:
+    chdir: ~/evrouter_0.4
+
+- name: configure evrouter
+  shell: ./configure
+  args:
+    chdir: ~/evrouter_0.4
+
+- name: make evrouter
+  shell: make
+  args:
+    chdir: ~/evrouter_0.4
+
+- name: make evrouter
+  shell: make install
+  args:
+    chdir: ~/evrouter_0.4
+  sudo: True

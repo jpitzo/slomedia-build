@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb", KERNEL=="event?", ATTRS{idVendor}=="077d", ATTRS{idProduct}=="0410", SYMLINK+="powermate", MODE="0666", GROUP="pi" OWNER="pi"

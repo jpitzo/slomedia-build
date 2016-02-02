@@ -12,6 +12,7 @@
   git:
     repo: https://github.com/jpitzo/slomedia-client.git
     dest: /data/client
+    force: yes
 
 - name: add web host host
   lineinfile: dest=/etc/hosts line="127.0.0.1 slomedialocal"
@@ -24,6 +25,11 @@
 
 - name: install bower packages
   shell: bower install
+  args:
+    chdir: /data/client
+
+- name: install ruby packages
+  shell: bundle install
   args:
     chdir: /data/client
 
