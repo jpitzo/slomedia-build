@@ -8,9 +8,13 @@
     - curl
   sudo: True
 
+- stat: path=/usr/bin/node
+  register: node
+
 - name: add node debian
   shell:  curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
   sudo: True
+  when: node.stat.exists == False
 
 - name: install apt packages
   apt:

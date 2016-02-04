@@ -2,7 +2,7 @@
 
 - name: Create server directory
   file:
-    path: /data/server
+    path: "{{ project_path }}"
     state: directory
     owner: pi
     group: pi
@@ -19,13 +19,17 @@
 - name: checkout server project
   git:
     repo: https://github.com/jpitzo/slomedia-server.git
-    dest: /data/server
+    dest: "{{ project_path }}"
     force: yes
 
 - name: install npm packages
   shell: npm install
   args:
-    chdir: /data/server
+    chdir: "{{ project_path }}"
+
+- name: add sync host
+  lineinfile: dest=/etc/hosts line="{{ sync_host }} raspberry_sync"
+  sudo: True
 
 - stat: path=/usr/local/bin/evrouter
   register: evrouter
@@ -33,7 +37,7 @@
 - include: evrouter.yml
   when: evrouter.stat.exists == False
 
-- stat: /etc/udev/rules.d/powermate.rules
+- stat: path=/etc/udev/rules.d/powermate.rules
   register: powermate_rules
 
 - name: Copy udev rules
@@ -47,3 +51,15 @@
   shell: service restart udev
   sudo: True
   when: powermate_rules.stat.exists == False
+
+- name: Check list of Node.js apps running.
+  command: forever list
+  register: forever_list
+  changed_when: false
+
+- name: Stop server
+  command: "forever stop {{ project_path }}/server.js"
+  when: "forever_list.stdout.find('{{ project_path }}/server.js') != -1"
+
+- name: Start server.
+  command: "forever start {{ project_path }}/server.js"

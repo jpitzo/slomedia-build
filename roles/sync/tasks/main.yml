@@ -1,0 +1,32 @@
+---
+
+- name: Create sync directory
+  file:
+    path: "{{ project_path }}"
+    state: directory
+    owner: pi
+    group: pi
+  sudo: True
+
+- name: checkout sync project
+  git:
+    repo: https://github.com/jpitzo/slomedia-sync.git
+    dest: "{{ project_path }}"
+    force: yes
+
+- name: install npm packages
+  shell: npm install
+  args:
+    chdir: "{{ project_path }}"
+
+- name: Check list of Node.js apps running.
+  command: forever list
+  register: forever_list
+  changed_when: false
+
+- name: Stop server
+  command: "forever stop {{ project_path }}/server.js"
+  when: "forever_list.stdout.find('{{ project_path }}/server.js') != -1"
+
+- name: Start server.
+  command: "forever start {{ project_path }}/server.js"

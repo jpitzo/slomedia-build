@@ -5,7 +5,7 @@
     name: "{{ item }}"
     state: present
   sudo: True
-  with_item:
+  with_items:
     - libx11-dev
     - automake
     - libxtst-dev

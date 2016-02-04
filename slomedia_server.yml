@@ -3,4 +3,3 @@
 - hosts: raspberry_pi
   roles:
     - server
-    - client
