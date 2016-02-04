@@ -8,6 +8,14 @@
     group: pi
   sudo: True
 
+- name: Create media directory
+  file:
+    path: /data/media
+    state: directory
+    owner: pi
+    group: pi
+  sudo: True
+
 - name: checkout server project
   git:
     repo: https://github.com/jpitzo/slomedia-server.git
