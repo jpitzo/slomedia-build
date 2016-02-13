@@ -37,8 +37,8 @@
 - name: restart nginx
   service: name=nginx state=restarted
 
-- stat: path=/usr/bin/chromium-browser
-  register: chromium
+#- stat: path=/usr/bin/chromium-browser
+#  register: chromium
 
-- include: chromium.yml
-  when: chromium.stat.exist == False
+#- include: chromium.yml
+#  when: chromium.stat.exist == False

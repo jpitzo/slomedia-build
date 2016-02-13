@@ -24,6 +24,7 @@
     - vim
     - build-essential
     - nodejs
+    - npm
     - git
     - ruby
     - ruby-dev

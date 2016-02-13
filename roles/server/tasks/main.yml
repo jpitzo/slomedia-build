@@ -34,8 +34,8 @@
 - stat: path=/usr/local/bin/evrouter
   register: evrouter
 
-- include: evrouter.yml
-  when: evrouter.stat.exists == False
+#- include: evrouter.yml
+#  when: evrouter.stat.exists == False
 
 - stat: path=/etc/udev/rules.d/powermate.rules
   register: powermate_rules

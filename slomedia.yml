@@ -1,6 +1,6 @@
 ---
 
-- hosts: raspberry_pi
+- hosts: all
   roles:
     - server
     - client
