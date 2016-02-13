@@ -28,8 +28,7 @@
   shell: npm install
   args:
     chdir: "{{ project_path }}"
-  become: yes
-  become_user: www-data
+  sudo: True
 
 - name: add sync host
   lineinfile: dest=/etc/hosts line="{{ sync_host }} raspberry_sync"
@@ -46,13 +45,13 @@
 
 - name: Copy udev rules
   copy:
-    src: powermate.rules_j2
+    src: ../templates/powermate.rules_j2
     dest: /etc/udev/rules.d/powermate.rules
   sudo: True
   when: powermate_rules.stat.exists == False
 
 - name: Restart udev
-  shell: service restart udev
+  shell: service udev restart
   sudo: True
   when: powermate_rules.stat.exists == False
 
@@ -61,9 +60,9 @@
   register: forever_list
   changed_when: false
 
-- name: Stop server
-  command: "forever stop {{ project_path }}/server.js"
-  when: "forever_list.stdout.find('{{ project_path }}/server.js') != -1"
+#- name: Stop server
+#  command: "forever stop {{ project_path }}/server.js"
+#  when: "forever_list.stdout.find('{{ project_path }}/server.js') != -1"
 
 - name: Start server.
   command: "forever start {{ project_path }}/server.js"
