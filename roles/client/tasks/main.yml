@@ -26,7 +26,6 @@
 
 - name: install bower packages
   bower: path=/data/client
-  sudo: True
 
 - name: install ruby packages
   shell: bundle install
