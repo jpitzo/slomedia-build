@@ -21,11 +21,15 @@
     repo: https://github.com/jpitzo/slomedia-server.git
     dest: "{{ project_path }}"
     force: yes
+  become: yes
+  become_user: www-data
 
 - name: install npm packages
   shell: npm install
   args:
     chdir: "{{ project_path }}"
+  become: yes
+  become_user: www-data
 
 - name: add sync host
   lineinfile: dest=/etc/hosts line="{{ sync_host }} raspberry_sync"
