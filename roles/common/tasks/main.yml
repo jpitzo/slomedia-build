@@ -24,7 +24,6 @@
     - vim
     - build-essential
     - nodejs
-    - npm
     - git
     - ruby
     - ruby-dev
@@ -54,6 +53,6 @@
   file:
     path: /data
     state: directory
-    owner: pi
-    group: pi
+    owner: www-data
+    group: www-data
   sudo: True

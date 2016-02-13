@@ -4,16 +4,16 @@
   file:
     path: "{{ project_path }}"
     state: directory
-    owner: pi
-    group: pi
+    owner: www-data
+    group: www-data
   sudo: True
 
 - name: Create media directory
   file:
     path: /data/media
     state: directory
-    owner: pi
-    group: pi
+    owner: www-data
+    group: www-data
   sudo: True
 
 - name: checkout server project
