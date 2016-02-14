@@ -4,20 +4,15 @@
   file:
     path: /data/client
     state: directory
-    owner: www-data
-    group: www-data
-  sudo: True
 
 - name: checkout client project
   git:
     repo: https://github.com/jpitzo/slomedia-client.git
     dest: /data/client
     force: yes
-  become: yes
-  become_user: www-data
 
 - name: add web host host
-  lineinfile: dest=/etc/hosts line="127.0.0.1 slomedialocal"
+  lineinfile: dest=/etc/hosts line="127.0.0.1 sloclient.net"
   sudo: True
 
 - name: install npm packages
@@ -31,13 +26,11 @@
   shell: bundle install
   args:
     chdir: /data/client
-  sudo: True
 
 - name: build project
   shell: grunt build
   args:
     chdir: /data/client
-  sudo: True
 
 - name: restart nginx
   service: name=nginx state=restarted

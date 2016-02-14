@@ -2,6 +2,6 @@
 
 nginx_vhosts:
   - listen: "80"
-    server_name: "slomedialocal"
+    server_name: "sloclient.net"
     root: "/data/client/dist"
     index: "index.html index.htm"

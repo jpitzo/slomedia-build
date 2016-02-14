@@ -4,31 +4,26 @@
   file:
     path: "{{ project_path }}"
     state: directory
-    owner: www-data
-    group: www-data
-  sudo: True
+    owner: vagrant
+    group: vagrant
 
 - name: Create media directory
   file:
     path: /data/media
     state: directory
-    owner: www-data
-    group: www-data
-  sudo: True
+    owner: vagrant
+    group: vagrant
 
 - name: checkout server project
   git:
     repo: https://github.com/jpitzo/slomedia-server.git
     dest: "{{ project_path }}"
     force: yes
-  become: yes
-  become_user: www-data
 
 - name: install npm packages
   shell: npm install
   args:
     chdir: "{{ project_path }}"
-  sudo: True
 
 - name: add sync host
   lineinfile: dest=/etc/hosts line="{{ sync_host }} raspberry_sync"

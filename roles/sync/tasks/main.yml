@@ -4,9 +4,6 @@
   file:
     path: "{{ project_path }}"
     state: directory
-    owner: www-data
-    group: www-data
-  sudo: True
 
 - name: checkout sync project
   git:

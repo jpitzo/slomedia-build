@@ -64,12 +64,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node_config.vm.box = node[:box]
       node_config.vm.host_name = node[:hostname] + domain
       node_config.vm.network :private_network, ip: node[:ip]
-      node_config.hostmanager.aliases = ['raspberrypi', 'slomedialocal']
+      node_config.hostmanager.aliases = ['sloserver.net', 'sloclient.net']
 
       node_config.vm.provider :virtualbox do |vb|
         vb.memory = node[:ram] ? node[:ram] : 512
         vb.cpus = node[:cpus] ? node[:cpus] : 1
         vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+        vb.customize ["modifyvm", :id, "--usb", "on"]
+        vb.customize ["modifyvm", :id, "--usbehci", "on"]
+        vb.customize ["usbfilter", "add", "0",
+            "--target", :id,
+            "--name", "Griffin Powermate",
+            "--vendorid", '0x077d',
+            "--productid", '0x0410']
       end
 
       if node.key?(:sync)
