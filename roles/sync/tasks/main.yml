@@ -23,7 +23,7 @@
 
 - name: Stop server
   command: "forever stop {{ project_path }}/server.js"
-  when: "forever_list.stdout.find('{{ project_path }}/server.js') != -1"
+  when: forever_list.stdout.find('{{ project_path }}/server.js') != -1
 
 - name: Start server.
   command: "forever start {{ project_path }}/server.js"
