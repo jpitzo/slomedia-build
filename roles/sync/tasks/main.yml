@@ -16,6 +16,21 @@
   args:
     chdir: "{{ project_path }}"
 
+- stat: path=/etc/udev/rules.d/sync_hid.rules
+  register: hid_rules
+
+- name: Copy udev rules
+  copy:
+    src: ../templates/sync_hid.rules_j2
+    dest: /etc/udev/rules.d/sync_hid.rules
+  sudo: True
+  when: hid_rules.stat.exists == False
+
+- name: Restart udev
+  shell: service udev restart
+  sudo: True
+  when: hid_rules.stat.exists == False
+
 - name: Check list of Node.js apps running.
   command: forever list
   register: forever_list

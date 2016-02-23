@@ -2,3 +2,7 @@
 install ansible
 
 ansible-galaxy -r requirments.yml
+
+to run sync:
+
+ansible-playbook -i inv/sync.inv slomedia_sync.yml -u pi --ask-pass

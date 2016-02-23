@@ -52,6 +52,6 @@
   file:
     path: /data
     state: directory
-    owner: vagrant
-    group: vagrant
+    owner: "{{ owner_user }}"
+    group: "{{ owner_group }}"
   sudo: True
