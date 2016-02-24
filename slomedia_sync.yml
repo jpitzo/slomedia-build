@@ -1,5 +1,5 @@
 ---
 
-- hosts: sync
+- hosts: all
   roles:
     - sync
