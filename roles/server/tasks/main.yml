@@ -55,9 +55,10 @@
   register: forever_list
   changed_when: false
 
-- name: Stop server
-  command: "forever stop {{ project_path }}/server.js"
+- name: restart server
+  command: "forever restartall"
   when: forever_list.stdout.find('{{ project_path }}/server.js') != -1
 
 - name: Start server.
   command: "forever start {{ project_path }}/server.js"
+  when: forever_list.stdout.find('{{ project_path }}/server.js') == -1
