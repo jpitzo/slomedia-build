@@ -2,3 +2,6 @@
 
 sync_host: 192.168.1.139
 project_path: /data/server
+
+owner_user: billyw
+owner_group: billyw
