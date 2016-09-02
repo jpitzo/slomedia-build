@@ -4,15 +4,15 @@
   file:
     path: "{{ project_path }}"
     state: directory
-    owner: vagrant
-    group: vagrant
+    owner: "{{ owner_user }}"
+    group: "{{ owner_group }}"
 
 - name: Create media directory
   file:
     path: /data/media
     state: directory
-    owner: vagrant
-    group: vagrant
+    owner: "{{ owner_user }}"
+    group: "{{ owner_group }}"
 
 - name: checkout server project
   git:
