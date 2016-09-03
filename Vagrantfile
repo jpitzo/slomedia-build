@@ -4,6 +4,7 @@ domain = '.vagrant'
 
 sync_dirs = []
 sync_dirs.push(["/slomedia", "/data/media"])
+sync_dirs.push([".", "/data/build"])
 
 conf = {
   nfs: Vagrant.has_plugin?('vagrant-bindfs')
