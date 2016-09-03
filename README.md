@@ -10,6 +10,10 @@ wget https://releases.hashicorp.com/vagrant/1.8.5/vagrant_1.8.5_x86_64.deb
 dpkg -i vagrant_1.8.5_x86_64.deb
 
 # install ansible
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible
 
 # install git and other tools
 sudo apt-get install git vim
