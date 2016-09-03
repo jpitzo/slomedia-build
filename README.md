@@ -13,6 +13,10 @@ dpkg -i vagrant_1.8.5_x86_64.deb
 sudo apt-get update
 sudo apt-get install virtualbox-5.1 vagrant
 
+# Install vagrant plugins
+vagrant plugin install vagrant-cachier
+vagrant plugin install vagrant-hostmanager
+
 # install ansible
 sudo apt-get install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
@@ -27,6 +31,13 @@ git clone https://github.com/jpitzo/slomedia-build.git
 
 # Install galaxy plugins
 ansible-galaxy install -r requirments.yml
+
+# Unplug griffen!!
+
+#Create media dir
+sudo mkdir /slomedia
+
+# Put all media in /slomedia
 
 # Init vagrant 
 vagrant up
