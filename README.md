@@ -11,7 +11,7 @@ dpkg -i vagrant_1.8.5_x86_64.deb
 
 # Install packages
 sudo apt-get update
-sudo apt-get install virtualbox-5.1 vagrant
+sudo apt-get install virtualbox-5.1 vagrant virtualbox-ext-pack
 
 # Install vagrant plugins
 vagrant plugin install vagrant-cachier
