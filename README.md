@@ -9,6 +9,10 @@ dpkg -i virtualbox-5.1_5.1.4-110228~Ubuntu~xenial_amd64.deb
 wget https://releases.hashicorp.com/vagrant/1.8.5/vagrant_1.8.5_x86_64.deb
 dpkg -i vagrant_1.8.5_x86_64.deb
 
+# Install packages
+sudo apt-get update
+sudo apt-get install virtualbox-5.1 vagrant
+
 # install ansible
 sudo apt-get install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
