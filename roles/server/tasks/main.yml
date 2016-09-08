@@ -50,15 +50,17 @@
   sudo: True
   when: powermate_rules.stat.exists == False
 
+- name: add upstart  
+  template:
+    src: ../templates/sloserver.conf_j2
+    dest: /etc/init/sloserver.conf
+  sudo: True
+
 - name: Check list of Node.js apps running.
   command: forever list
   register: forever_list
   changed_when: false
 
 - name: restart server
-  command: "forever restartall"
-  when: forever_list.stdout.find('{{ project_path }}/server.js') != -1
-
-- name: Start server.
-  command: "forever start {{ project_path }}/server.js"
-  when: forever_list.stdout.find('{{ project_path }}/server.js') == -1
+  service: name=sloserver state=restarted
+  sudo: True

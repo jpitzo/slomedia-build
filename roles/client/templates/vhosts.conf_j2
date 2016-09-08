@@ -1,0 +1,8 @@
+server {
+    listen 80;
+    server_name sloclient.net;
+
+    root /data/client/dist;
+    
+    index index.html index.htm;
+}

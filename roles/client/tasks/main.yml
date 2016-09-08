@@ -1,5 +1,13 @@
 ---
 
+- name: install nginx
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - nginx
+  sudo: True
+
 - name: Create client directory
   file:
     path: /data/client
@@ -32,11 +40,11 @@
   args:
     chdir: /data/client
 
+- name: add vhosts  
+  template:
+    src: ../templates/vhosts.conf_j2
+    dest: /etc/nginx/sites-enabled/vhosts.conf
+  sudo: True
+
 - name: restart nginx
   service: name=nginx state=restarted
-
-#- stat: path=/usr/bin/chromium-browser
-#  register: chromium
-
-#- include: chromium.yml
-#  when: chromium.stat.exist == False
