@@ -7,7 +7,7 @@ NC='\033[0m' # No Color
 
 for (( ; ; ))
 do
-   read -p "${PURPLE}Where would you like to install to?  Defaults to home dir [$HOME]: ${NC}" INSTALL_DIR
+   read -p "Where would you like to install to?  Defaults to home dir [$HOME]: " INSTALL_DIR
    INSTALL_DIR=${INSTALL_DIR:-$HOME}
    if [ -d "$INSTALL_DIR" ]; then
         printf "${GREEN}Got it! I'll do it, I guess..${NC}\n"
@@ -30,7 +30,7 @@ vbox_install () {
         wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
         
         sudo apt-get update
-        sudo apt-get install virtualbox-5.1
+        sudo apt-get install -y virtualbox-5.1
         
         printf "${PURPLE}Installing Virtualbox extensions...${NC}\n"
         wget -P /tmp http://download.virtualbox.org/virtualbox/5.1.4/Oracle_VM_VirtualBox_Extension_Pack-5.1.4-110228.vbox-extpack
@@ -72,12 +72,25 @@ vagrant_install
 printf "${PURPLE}Cloning git repo...${NC}\n"
 
 if [ -d "$INSTALL_DIR/slomedia-build" ]; then
-    printf "{$LIGHTRED}Oh Snap!  The project is already checked out.{$NC}\n"
+    printf "${LIGHTRED}Oh Snap!  The project is already checked out.${NC}\n"
 else
     git clone https://github.com/jpitzo/slomedia-build.git $INSTALL_DIR/slomedia-build
 fi
 
-read -p "${PURPLE}Do you want to run vagrant now? [Y/n]: ${NC}" VRUN
+printf "${PURPLE}Check if media dir exists...${NC}\n"
+
+MEDIA_DIR="/data/media"
+if [[ -d $MEDIA_DIR ]]; then
+    printf "${GREEN}Media directory already exists.${NC}\n"
+elif [[ -f $MEDIA_DIR ]]; then
+    printf "${LIGHTRED}Oh Snap! $MEDIA_DIR is a file?  Don't do that.${NC}\n"
+else
+    printf "${PURPLE}Creating media dir...${NC}\n"
+    sudo mkdir $MEDIA_DIR
+    sudo chown -R $USER:$USER $MEDIA_DIR
+fi
+
+read -p "Do you want to run vagrant now? [Y/n]: " VRUN
 VRUN=${VRUN:-Y}
 
 if [[ $VRUN =~ ^[Yy]$ ]]

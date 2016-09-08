@@ -1,5 +1,18 @@
 # Install for Ubuntu Xenial
 
+## Easy way
+
+This script still may be a little buggy as installing vbox extensions doesn't always go smoothly
+
+```
+./setup.sh
+```
+
+You will now have a folder /data/media on the host machine to put your media in.  Use the included demux.py script
+to demux videos in to separate audio and video tracks
+
+## Hard way
+
 ```
 # Install virtualbox
 wget http://download.virtualbox.org/virtualbox/5.1.4/virtualbox-5.1_5.1.4-110228~Ubuntu~xenial_amd64.deb
@@ -32,16 +45,17 @@ sudo apt-get install git vim
 # Clone project
 git clone https://github.com/jpitzo/slomedia-build.git
 
-# Install galaxy plugins
-ansible-galaxy install -r requirments.yml
-
-# Unplug griffen!!
-
 #Create media dir
 sudo mkdir /slomedia
 
-# Put all media in /slomedia
+# Put all media in /slomedia and run demux
 
 # Init vagrant 
 vagrant up
 ```
+
+# Troubleshooting
+
+1. First try unplugging and replugging in the griffin controller.  Occasionally virtualbox will not attach it to the correct host on startup
+2. Run `vagrant provision` in the folder where the code resides
+3. Run `vagrant halt`, `vagrant destory` and `vagrant up` as a scortched earth approach to the problem

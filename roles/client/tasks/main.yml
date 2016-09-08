@@ -48,3 +48,4 @@
 
 - name: restart nginx
   service: name=nginx state=restarted
+  sudo: True
